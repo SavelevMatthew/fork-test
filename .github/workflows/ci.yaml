@@ -24,6 +24,8 @@ jobs:
       - run: echo "${{ github.event.pull_request.head.repo.full_name }}"
       - run: echo "${{ github.repository }}"
       - run: echo "$GITHUB_CONTEXT"
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
 
   test-job:
     needs: authorize
