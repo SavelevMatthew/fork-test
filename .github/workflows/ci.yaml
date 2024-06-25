@@ -20,7 +20,7 @@ jobs:
       github.event.pull_request.head.repo.full_name != github.repository &&
       'external' || 'internal' }}
     steps:
-      - run: Echo "Environment detection run"
+      - run: echo "Environment detection run"
 
   test-job:
     needs: authorize
