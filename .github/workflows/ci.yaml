@@ -16,11 +16,13 @@ jobs:
   authorize:
     runs-on: ubuntu-latest
     environment:
-      ${{ github.event.name == 'pull_request_target' &&
+      ${{ github.event_name == 'pull_request_target' &&
       github.event.pull_request.head.repo.full_name != github.repository &&
       'external' || 'internal' }}
     steps:
-      - run: echo "Environment detection run"
+      - run: echo "$GITHUB_CONTEXT"
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
 
   test-job:
     needs: authorize
