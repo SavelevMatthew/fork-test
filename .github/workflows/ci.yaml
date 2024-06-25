@@ -13,7 +13,17 @@ on:
       - main
 
 jobs:
+  authorize:
+    runs-on: ubuntu-latest
+    environment:
+      ${{ github.event.name == 'pull_request_target' &&
+      github.event.pull_request.head.repo.full_name != github.repository &&
+      'external' || 'internal' }}
+    steps:
+      - run: Echo "Environment detection run"
+
   test-job:
+    needs: authorize
     name: Checkout Test
     runs-on: ubuntu-latest
     steps:
