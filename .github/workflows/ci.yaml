@@ -23,6 +23,7 @@ jobs:
       - run: echo "${{ github.event.name }}"
       - run: echo "${{ github.event.pull_request.head.repo.full_name }}"
       - run: echo "${{ github.repository }}"
+      - run: echo "$GITHUB_CONTEXT"
 
   test-job:
     needs: authorize
