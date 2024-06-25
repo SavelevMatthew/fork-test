@@ -1,0 +1,26 @@
+name: Test CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test-job:
+    name: Checkout Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout code"
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: recursive
+      - name: 'Run LS'
+        run: |
+          ls
+      - name: 'Run submodule LS'
+        run: |
+          ls submodule
