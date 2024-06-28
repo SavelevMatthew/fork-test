@@ -12,6 +12,9 @@ on:
     branches:
       - main
 
+env:
+  IMAGE: ${{ secrets.IMAGE }}
+
 jobs:
   authorize:
     runs-on: ubuntu-latest
@@ -42,3 +45,14 @@ jobs:
       - name: 'Run submodule LS'
         run: |
           ls submodule
+      - name: 'Pass info'
+        id: pass-step
+        run: |
+          echo "image=${{ env.IMAGE }}" >>  >> "$GITHUB_OUTPUT"
+    outputs:
+      IMAGE: ${{ steps.pass-step.outputs.image }}
+  another_job:
+    needs: test-job
+    uses: ./.github/workflows/another.yaml
+    with:
+      image_name: ${{ needs.test-job.outputs.image }}
