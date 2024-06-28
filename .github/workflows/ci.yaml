@@ -66,5 +66,8 @@ jobs:
       - run: echo "${{ needs.test-job.outputs.something }}"
 
   another:
+    needs: test-job
     uses: ./.github/workflows/another.yaml
+    with:
+      image_name: ${{ needs.test-job.outputs.something }}
     secrets: inherit
