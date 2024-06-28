@@ -62,3 +62,4 @@ jobs:
       - run: echo "$GITHUB_CONTEXT"
         env:
           GITHUB_CONTEXT: ${{ toJSON(needs) }}
+      - run: echo "${{ needs.test-job.outputs.something }}"
