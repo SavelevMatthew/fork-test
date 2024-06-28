@@ -13,7 +13,7 @@ on:
       - main
 
 env:
-  IMAGE: ${{ secrets.IMAGE }}
+  IMAGE: ${{ secrets.IMAGE }}/123123
 
 jobs:
   authorize:
@@ -32,8 +32,7 @@ jobs:
     name: Checkout Test
     runs-on: ubuntu-latest
     outputs:
-      something: ${{ steps.pass-step.outputs.image }}
-      other: ${{ env.IMAGE }}
+      something: ${{ env.IMAGE }}
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v4
@@ -48,22 +47,6 @@ jobs:
       - name: 'Run submodule LS'
         run: |
           ls submodule
-      - name: 'Pass info'
-        id: pass-step
-        run: |
-          echo "image=123456" >> "$GITHUB_OUTPUT"
-      - run: echo "$GITHUB_CONTEXT"
-        env:
-          GITHUB_CONTEXT: ${{ toJSON(steps) }}
-
-  echo:
-    needs: test-job
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "$GITHUB_CONTEXT"
-        env:
-          GITHUB_CONTEXT: ${{ toJSON(needs) }}
-      - run: echo "${{ needs.test-job.outputs.something }}"
 
   another:
     needs: test-job
