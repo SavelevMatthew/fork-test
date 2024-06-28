@@ -49,6 +49,9 @@ jobs:
         id: pass-step
         run: |
           echo "image=${{ env.IMAGE }}" >> "$GITHUB_OUTPUT"
+      - run: echo "$GITHUB_CONTEXT"
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(steps) }}
     outputs:
       IMAGE: ${{ steps.pass-step.outputs.image }}
 
@@ -59,9 +62,3 @@ jobs:
       - run: echo "$GITHUB_CONTEXT"
         env:
           GITHUB_CONTEXT: ${{ toJSON(needs) }}
-
-  another_job:
-    needs: test-job
-    uses: ./.github/workflows/another.yaml
-    with:
-      image_name: ${{ needs.test-job.outputs.image }}
