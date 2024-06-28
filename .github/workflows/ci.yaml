@@ -13,7 +13,8 @@ on:
       - main
 
 env:
-  IMAGE: ${{ secrets.IMAGE }}/123123
+  IMAGE: ${{ secrets.IMAGE }}
+  PP: ${{ github.sha}}
 
 jobs:
   authorize:
@@ -32,7 +33,7 @@ jobs:
     name: Checkout Test
     runs-on: ubuntu-latest
     outputs:
-      something: ${{ env.IMAGE }}
+      something: ${{ env.PP }}
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v4
@@ -47,6 +48,15 @@ jobs:
       - name: 'Run submodule LS'
         run: |
           ls submodule
+
+  echo:
+    needs: test-job
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "$GITHUB_CONTEXT"
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(needs) }}
+      - run: echo "${{ needs.test-job.outputs.something }}"
 
   another:
     needs: test-job
