@@ -48,7 +48,7 @@ jobs:
       - name: 'Pass info'
         id: pass-step
         run: |
-          echo "image=${{ env.IMAGE }}" >>  >> "$GITHUB_OUTPUT"
+          echo "image=${{ env.IMAGE }}" >> "$GITHUB_OUTPUT"
     outputs:
       IMAGE: ${{ steps.pass-step.outputs.image }}
   another_job:
