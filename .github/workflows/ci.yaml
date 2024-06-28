@@ -33,6 +33,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       something: ${{ steps.pass-step.outputs.image }}
+      other: ${{ env.IMAGE }}
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v4
