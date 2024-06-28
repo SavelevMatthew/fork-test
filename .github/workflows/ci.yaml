@@ -31,6 +31,8 @@ jobs:
     needs: authorize
     name: Checkout Test
     runs-on: ubuntu-latest
+    outputs:
+      something: ${{ steps.pass-step.outputs.image }}
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v4
@@ -52,8 +54,6 @@ jobs:
       - run: echo "$GITHUB_CONTEXT"
         env:
           GITHUB_CONTEXT: ${{ toJSON(steps) }}
-    outputs:
-      IMAGE: ${{ steps.pass-step.outputs.image }}
 
   echo:
     needs: test-job
