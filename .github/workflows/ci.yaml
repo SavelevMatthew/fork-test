@@ -69,5 +69,5 @@ jobs:
     needs: test-job
     uses: ./.github/workflows/another.yaml
     with:
-      image_name: ${{ needs.test-job.outputs.something }}
+      image_name: ${{ needs.test-job.outputs.other }}
     secrets: inherit
