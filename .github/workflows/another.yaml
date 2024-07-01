@@ -12,3 +12,6 @@ jobs:
       - name: Echo
         run: |
           echo "${{ inputs.image_name }}"
+      - run: echo "$GITHUB_CONTEXT"
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
